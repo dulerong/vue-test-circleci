@@ -39,7 +39,7 @@ jobs:
       - heroku/deploy-via-git
 
 workflows:
-  version: 2.1
+  # version: 2.1
   deploy:
     jobs:
       - build-job
