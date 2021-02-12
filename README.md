@@ -1,5 +1,14 @@
 # vue-test-circleci
 
+## Check current git config username
+```
+git config user.name
+
+or
+
+git config --list
+```
+
 ## Project setup
 ```
 npm install
