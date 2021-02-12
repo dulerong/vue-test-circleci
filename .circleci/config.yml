@@ -3,7 +3,7 @@ orbs:
   heroku: circleci/heroku@1.2.5
 jobs:
   build-job:
-    working_directory: ~/repo
+    working_directory: ~/project
     docker:
       - image: circleci/node:12.18.2
     steps:
@@ -28,14 +28,20 @@ jobs:
           command: npm run test:unit
 
   deploy-job:
-    working_directory: ~/repo
+    working_directory: ~/project
     docker: 
       - image: circleci/node:12.18.2
     steps:
       # - restore_cache:
       #     key: dependency-cache-{{ checksum "package-lock.json" }}
-      - attach_workspace:
-          at: ~/repo
+      # - attach_workspace:
+      #     at: ~/project
+      - run:
+          name: show directory 
+          command: pwd
+      - run:
+          name: look in directory
+          command: ls -ltr
       - heroku/deploy-via-git
 
 workflows:
