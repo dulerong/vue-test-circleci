@@ -8,8 +8,8 @@ jobs:
       - image: circleci/node:12.18.2
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+      # - restore_cache:
+      #     key: dependency-cache-{{ checksum "package-lock.json" }}
       - run: 
           name: Install dependencies
           command: npm install
@@ -32,8 +32,8 @@ jobs:
     docker: 
       - image: circleci/node:12.18.2
     steps:
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+      # - restore_cache:
+      #     key: dependency-cache-{{ checksum "package-lock.json" }}
       - attach_workspace:
           at: ~/repo
       - heroku/deploy-via-git
