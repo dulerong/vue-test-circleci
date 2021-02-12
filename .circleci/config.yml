@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@1.2.5
 jobs:
-  build:
+  build-job:
     working_directory: ~/repo
     docker:
       - image: circleci/node:12.18.2
@@ -27,7 +27,7 @@ jobs:
           name: test
           command: npm run test:unit
 
-  deploy:
+  deploy-job:
     working_directory: ~/repo
     docker: 
       - image: circleci/node:12.18.2
@@ -39,12 +39,12 @@ jobs:
       - heroku/deploy-via-git
 
 workflows:
-  build-and-deploy:
+  - deploy:
     jobs:
-      - build
-      - deploy:
+      - build-job
+      - deploy-job:
         requires:
-          - build
+          - build-job
         filters:
           branches:
             only: develop
