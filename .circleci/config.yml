@@ -39,12 +39,13 @@ jobs:
       - heroku/deploy-via-git
 
 workflows:
-  - deploy:
-      jobs:
-        - build-job
-        - deploy-job:
-            requires:
-              - build-job
-            filters:
-              branches:
-                only: develop
+  version: 2
+  deploy:
+    jobs:
+      - build-job
+      - deploy-job:
+          requires:
+            - build-job
+          filters:
+            branches:
+              only: develop
