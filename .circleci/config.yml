@@ -27,6 +27,21 @@ jobs:
           name: test
           command: npm run test:unit
 
+  deploy-staging:
+    working_directory: ~/project
+    docker: 
+      - image: circleci/node:12.18.2
+    steps:
+      - checkout
+      - run:
+          name: show directory 
+          command: pwd
+      - run:
+          name: look in directory
+          command: ls -ltr
+      - heroku/deploy-via-git:
+          app-name: $HEROKU_STAGING_APP_NAME
+
   deploy-production:
     working_directory: ~/project
     docker: 
@@ -51,6 +66,12 @@ workflows:
   deploy:
     jobs:
       - build-job
+      - deploy-staging:
+          requires:
+            - build-job
+          filters:
+            branches:
+              only: develop
       - deploy-production:
           requires:
             - build-job
