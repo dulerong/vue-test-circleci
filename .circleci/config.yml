@@ -27,7 +27,7 @@ jobs:
           name: test
           command: npm run test:unit
 
-  deploy-job:
+  deploy-production:
     working_directory: ~/project
     docker: 
       - image: circleci/node:12.18.2
@@ -43,14 +43,15 @@ jobs:
       - run:
           name: look in directory
           command: ls -ltr
-      - heroku/deploy-via-git
+      - heroku/deploy-via-git:
+          app-name: $HEROKU_PRODUCTION_APP_NAME
 
 workflows:
   # version: 2.1
   deploy:
     jobs:
       - build-job
-      - deploy-job:
+      - deploy-production:
           requires:
             - build-job
           filters:
