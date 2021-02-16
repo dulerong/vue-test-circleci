@@ -43,7 +43,7 @@ jobs:
       - run:
           name: look in directory
           command: ls -ltr
-      - heroku/deploy-via-git
+      - heroku/deploy-via-git:
           app-name: $HEROKU_PRODUCTION_APP_NAME
 
 workflows:
